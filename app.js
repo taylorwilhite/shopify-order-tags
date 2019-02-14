@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const { getProductTags, addShipstationTag, hasSale } = require('./functions');
 
 require('dotenv').load();
 
@@ -11,7 +12,10 @@ app.use(bodyParser.json());
 app.post('/neworder', (req, res) => {
   console.log('webhook fired!');
   res.send(200);
-  console.log(req.body);
+  const tags = getProductTags(req.body.line_items);
+  if (hasSale(tags)) {
+    addShipstationTag(req.body.id);
+  }
 });
 
 app.listen(process.env.PORT || 3000, () => {
