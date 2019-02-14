@@ -4,7 +4,7 @@ require('dotenv').load();
 
 const app = express();
 
-app.get('/neworder', (req, res) => {
+app.post('/neworder', (req, res) => {
   console.log('webhook fired!');
 });
 
