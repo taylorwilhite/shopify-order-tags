@@ -1,0 +1,11 @@
+{
+  "name": "shopify-order-tags",
+  "version": "1.0.0",
+  "description": "Tag sale orders in Shopify",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Taylor Wilhite",
+  "license": "ISC"
+}
