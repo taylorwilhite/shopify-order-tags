@@ -8,9 +8,7 @@ exports.getProductTags = async (lineItems) => {
     url: requrl,
     json: true,
   };
-  const tags = await request(options).then((body) => body.products.map(product => product.tags).join(', ').split(', '));
-
-  console.log('External Tags: ' + typeof(tags) + tags);
+  const tags = await request(options).then(body => body.products.map(product => product.tags).join(', ').split(', '));
   return tags;
 };
 
@@ -32,7 +30,7 @@ exports.addOrderNote = (orderId) => {
 
   request(options)
     .then(response => console.log(response.statusCode))
-    .catch(err => console.log(err));
+    .catch(err => console.log(err.message));
 };
 
 exports.hasSale = (tagArray) => {

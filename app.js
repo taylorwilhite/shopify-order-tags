@@ -13,13 +13,11 @@ app.post('/neworder', async (req, res) => {
   console.log('webhook fired!');
   res.send(200);
   const tags = await getProductTags(req.body.line_items);
-  console.log('App.js Tags: ' + tags);
-  console.log(`hasSale test: ${hasSale(tags)}`);
   if (hasSale(tags)) {
     addOrderNote(req.body.id);
   }
 });
 
 app.listen(process.env.PORT || 3000, () => {
-  console.log('Server is running on port 3000!');
+  console.log('Server is running!');
 });
