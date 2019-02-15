@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { getProductTags, addShipstationTag, hasSale } = require('./functions');
+const { getProductTags, addOrderNote, hasSale } = require('./functions');
 
 require('dotenv').load();
 
@@ -16,7 +16,7 @@ app.post('/neworder', async (req, res) => {
   console.log('App.js Tags: ' + tags);
   console.log(`hasSale test: ${hasSale(tags)}`);
   if (hasSale(tags)) {
-    addShipstationTag(req.body.id);
+    addOrderNote(req.body.id);
   }
 });
 

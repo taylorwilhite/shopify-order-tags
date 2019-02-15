@@ -14,8 +14,25 @@ exports.getProductTags = async (lineItems) => {
   return tags;
 };
 
-exports.addShipstationTag = (orderId) => {
+exports.addOrderNote = (orderId) => {
+  const requrl = `https://${process.env.SHOPIFY_API_KEY}:${process.env.SHOPIFY_API_PASSWORD}@amaryllis-land.myshopify.com/admin/orders/${orderId}.json`;
+  const orderBody = {
+    order: {
+      id: orderId,
+      note: 'Order contains sale items',
+    },
+  };
+  const options = {
+    method: 'PUT',
+    url: requrl,
+    resolveWithFullResponse: true,
+    json: true,
+    body: orderBody,
+  };
 
+  request(options)
+    .then(response => console.log(response.statusCode))
+    .catch(err => console.log(err));
 };
 
 exports.hasSale = (tagArray) => {
