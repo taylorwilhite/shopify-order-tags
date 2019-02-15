@@ -2,7 +2,9 @@ const request = require('request');
 
 function getProductTags(lineItems) {
   const ids = lineItems.map(lineItem => lineItem.id);
-  const tags = request().products.map(product => product.tags).join(', ').split(', ');
+  const url = `https://${process.env.SHOPIFY_API_KEY}:${process.env.SHOPIFY_API_PASSWORD}@amaryllis-land.myshopify.com/admin/products.json?ids=${ids.split()}`
+  const tags = request.get(url)
+    .products.map(product => product.tags).join(', ').split(', ');
   return tags;
 }
 

@@ -13,6 +13,7 @@ app.post('/neworder', (req, res) => {
   console.log('webhook fired!');
   res.send(200);
   const tags = getProductTags(req.body.line_items);
+  console.log(tags);
   if (hasSale(tags)) {
     addShipstationTag(req.body.id);
   }
