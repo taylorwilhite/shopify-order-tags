@@ -10,7 +10,7 @@ exports.getProductTags = async (lineItems) => {
   };
   const tags = await request(options).then((body) => body.products.map(product => product.tags).join(', ').split(', '));
 
-  console.log('External Tags: ' + tags);
+  console.log('External Tags: ' + typeof(tags) + tags);
   return tags;
 };
 
@@ -19,5 +19,7 @@ exports.addShipstationTag = (orderId) => {
 };
 
 exports.hasSale = (tagArray) => {
-
+  const lowTag = tagArray.map(tag => tag.toLowerCase());
+  const isSale = (lowTag.indexOf('sale') > -1);
+  return isSale;
 };

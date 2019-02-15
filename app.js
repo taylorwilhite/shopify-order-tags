@@ -14,6 +14,7 @@ app.post('/neworder', async (req, res) => {
   res.send(200);
   const tags = await getProductTags(req.body.line_items);
   console.log('App.js Tags: ' + tags);
+  console.log(`hasSale test: ${hasSale(tags)}`);
   if (hasSale(tags)) {
     addShipstationTag(req.body.id);
   }
