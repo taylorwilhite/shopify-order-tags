@@ -1,11 +1,16 @@
-const request = require('request');
+const request = require('request-promise-native');
 
-exports.getProductTags = (lineItems) => {
-  const ids = lineItems.map(lineItem => lineItem.id);
-  const url = `https://${process.env.SHOPIFY_API_KEY}:${process.env.SHOPIFY_API_PASSWORD}@amaryllis-land.myshopify.com/admin/products.json?ids=${ids.join()}`;
-  const tags = request.get(url)
-    // .products.map(product => product.tags).join(', ').split(', ');
-  console.log(tags);
+exports.getProductTags = async (lineItems) => {
+  const ids = lineItems.map(lineItem => lineItem.product_id);
+  const requrl = `https://${process.env.SHOPIFY_API_KEY}:${process.env.SHOPIFY_API_PASSWORD}@amaryllis-land.myshopify.com/admin/products.json?ids=${ids.join()}`;
+  const options = {
+    method: 'GET',
+    url: requrl,
+    json: true,
+  };
+  const tags = await request(options).then((body) => body.products.map(product => product.tags).join(', ').split(', '));
+
+  console.log('External Tags: ' + tags);
   return tags;
 };
 

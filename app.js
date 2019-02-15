@@ -9,11 +9,11 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.post('/neworder', (req, res) => {
+app.post('/neworder', async (req, res) => {
   console.log('webhook fired!');
   res.send(200);
-  const tags = getProductTags(req.body.line_items);
-  console.log(tags);
+  const tags = await getProductTags(req.body.line_items);
+  console.log('App.js Tags: ' + tags);
   if (hasSale(tags)) {
     addShipstationTag(req.body.id);
   }
